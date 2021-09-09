@@ -16,6 +16,14 @@ const AuthBox = styled.div`
     height: 500px;
     border-radius: 15px;
     box-shadow: 5px 5px 20px #36359E;
+    form {
+        margin-top: 50px;
+        width: 100%;
+        display: flex;
+        justify-items: center;
+        flex-direction: column;
+        align-items: center;
+    }
 `;
 
 const Wrapper = styled.div`
@@ -30,10 +38,22 @@ const Wrapper = styled.div`
 
 const Input = styled.input`
     width: 100%;
-    border-radius: 3px;
-    padding: 5px;
+    height: 25px;
+    border-radius: 10px;
     background-color: #fafafa;
-    
+    margin-top: 5px;
+`;
+
+const Button = styled.button`
+    border: none;
+    border-radius: 10px;
+    margin-top: 10px;
+    background-color: #36359E;
+    color: white;
+    text-align: center;
+    padding: 5px 0px;
+    font-weight: 600;
+    width: 100%;
 `;
 
 const Login: React.FC = () => {
@@ -43,6 +63,8 @@ const Login: React.FC = () => {
                 <Wrapper>Login</Wrapper>
                 <form>
                     <Input />
+                    <Input />
+                    <Button>login</Button>
                 </form>
             </AuthBox>
         </Container>
