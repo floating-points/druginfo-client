@@ -1,13 +1,22 @@
 import React from "react";
-import { Router, Switch } from "react-router";
+import { BrowserRouter, Route, Router, Switch } from "react-router-dom";
+import Home from "./screens/Home";
 import Login from "./screens/Login";
+import SignUp from "./screens/SignUp";
 import { GlobalStyles } from "./styles"
+
 
 const App: React.FC = () => {
   return (
     <>
       <GlobalStyles />
-      <Login />
+      <BrowserRouter>
+        <Switch>
+          <Route path="/" component={Home} exact />
+          <Route path="/login" component={Login} />
+          <Route path="/signup" component={SignUp} />
+        </Switch>
+      </BrowserRouter>
     </>
   )
 }

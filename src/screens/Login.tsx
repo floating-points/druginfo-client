@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { useForm } from "react-hook-form";
+import { useForm, UseFormRegisterReturn } from "react-hook-form";
+import { RouteComponentProps } from "react-router-dom";
 
 const Container = styled.div`
     display: flex;
@@ -23,6 +24,7 @@ const AuthBox = styled.div`
         justify-items: center;
         flex-direction: column;
         align-items: center;
+        padding: 5px 10px;
     }
 `;
 
@@ -33,39 +35,101 @@ const Wrapper = styled.div`
     font-size: 25px;
     font-weight: 700;
     color: #3736D4;
-    margin-top: 15px;
+    margin-top: 20px;
 `;
 
 const Input = styled.input`
     width: 100%;
-    height: 25px;
+    height: 20px;
     border-radius: 10px;
     background-color: #fafafa;
-    margin-top: 5px;
+    margin-top: 23px;
+    padding: 5px;
 `;
 
 const Button = styled.button`
     border: none;
-    border-radius: 10px;
-    margin-top: 10px;
+    border-radius: 8px;
+    margin-top: 30px;
     background-color: #36359E;
     color: white;
     text-align: center;
     padding: 5px 0px;
     font-weight: 600;
+    font-size: 20px;
     width: 100%;
 `;
 
-const Login: React.FC = () => {
+const FacebookLogin = styled.button`
+    background-color: #385385;
+    border: none;
+    border-radius: 5px;
+    margin-top: 20px;
+    padding: 5px 0px;
+    width: 100%;
+    span {
+        font-size: 20px;
+        font-weight: 600;
+        color: white;
+    }
+`;
+
+const GoogleLogin = styled.button`
+    background-color: #EA4335;
+    border: none;
+    border-radius: 5px;
+    margin-top: 20px;
+    padding: 5px 0px;
+    width: 100%;
+    span {
+        font-size: 20px;
+        font-weight: 600;
+        color: white;
+    }
+`;
+
+interface PathParamsProps {
+    id: string;
+}
+
+interface user {
+    username: string
+    password: string
+}
+
+interface form {
+    register: () => UseFormRegisterReturn,
+    required: string
+}
+
+const Login: React.FC<RouteComponentProps<PathParamsProps>> = ({ location }: RouteComponentProps<PathParamsProps>) => {
+    // console.log(location)
+
+    const { register, handleSubmit, formState, getValues, setError, clearErrors } = useForm({
+        mode: "onChange",
+        // defaultValues: {
+        //     username: location?.state?.username || "",
+        //     password: location?.state?.password || ""
+        // }
+    });
+    const clearLoginError = () => {
+        clearErrors("result")
+    }
     return (
         <Container>
             <AuthBox>
                 <Wrapper>Login</Wrapper>
                 <form>
-                    <Input />
-                    <Input />
-                    <Button>login</Button>
+                    <Input onChange={clearLoginError} name="username" type="text" placeholder="Username" />
+                    <Input onChange={clearLoginError} name="password" type="password" placeholder="Password" />
+                    <Button type="submit">login</Button>
                 </form>
+                <FacebookLogin>
+                    <span>Login with Facebook</span>
+                </FacebookLogin>
+                <GoogleLogin>
+                    <span>Login with Google</span>
+                </GoogleLogin>
             </AuthBox>
         </Container>
     )
