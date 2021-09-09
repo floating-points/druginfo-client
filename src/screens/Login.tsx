@@ -24,7 +24,7 @@ const AuthBox = styled.div`
         justify-items: center;
         flex-direction: column;
         align-items: center;
-        padding: 5px 10px;
+        padding: 5px 7px;
     }
 `;
 
@@ -66,8 +66,11 @@ const FacebookLogin = styled.button`
     border: none;
     border-radius: 5px;
     margin-top: 20px;
+    margin-left: 2.5px;
+    margin-right: 2.5px;
     padding: 5px 0px;
-    width: 100%;
+    width: 98%;
+    cursor: pointer;
     span {
         font-size: 20px;
         font-weight: 600;
@@ -79,9 +82,12 @@ const GoogleLogin = styled.button`
     background-color: #EA4335;
     border: none;
     border-radius: 5px;
-    margin-top: 20px;
+    margin-top: 10px;
+    margin-left: 2.5px;
+    margin-right: 2.5px;
     padding: 5px 0px;
-    width: 100%;
+    width: 98%;
+    cursor: pointer;
     span {
         font-size: 20px;
         font-weight: 600;
