@@ -66,7 +66,7 @@ interface SFormInputs {
 }
 
 const SignUp: React.FC = () => {
-    const { register, handleSubmit, formState: { errors }, getValues, setError, clearErrors } = useForm({
+    const { register, handleSubmit, formState: { errors }, getValues, setError, clearErrors, watch } = useForm({
         mode: "onChange"
     });
     const onSubmitValid = (data: any) => {
@@ -83,8 +83,9 @@ const SignUp: React.FC = () => {
                 {errors.email?.type === "required" && "Email is required"}
                 <Input {...register("password", { required: true })} name="password" type="password" placeholder="Password" />
                 {errors.password?.type === "required" && "Password is required"}
-                <Input {...register("password", { required: true })}  name="password" type="password" placeholder="Password" />
+                <Input {...register("password", { required: true, validate: (value) => value === watch(password) })}  name="confirmedpassword" type="password" placeholder="Password" />
                 {errors.password?.type === "required" && "Password is required"}
+                
                 <Button type="submit">sign up</Button>
             </form>
         </AuthBox>
@@ -93,3 +94,7 @@ const SignUp: React.FC = () => {
 }
 
 export default SignUp;
+
+function password(password: any) {
+    throw new Error("Function not implemented.");
+}
