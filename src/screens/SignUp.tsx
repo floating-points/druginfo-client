@@ -1,4 +1,5 @@
 import React from "react";
+import { useForm } from "react-hook-form";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -58,21 +59,32 @@ const Button = styled.button`
     width: 100%;
 `;
 
-
-interface PathParamsProps {
-    id: string;
+interface SFormInputs {
+    username: string
+    email: string
+    password: string
 }
 
 const SignUp: React.FC = () => {
+    const { register, handleSubmit, formState: { errors }, getValues, setError, clearErrors } = useForm({
+        mode: "onChange"
+    });
+    const onSubmitValid = (data: any) => {
+        console.log(data)
+    }
     return (
         <Container>
         <AuthBox>
             <Wrapper>Sign Up</Wrapper>
-            <form>
-                <Input name="username" type="text" placeholder="Username" />
-                <Input name="email" type="text" placeholder="Email" />
-                <Input name="password" type="password" placeholder="Password" />
-                <Input name="password" type="password" placeholder="Password" />
+            <form onSubmit={handleSubmit(onSubmitValid)}>
+                <Input {...register("username", { required: true, maxLength: 20 })} name="username" type="text" placeholder="Username" />
+                {errors.username?.type === "required" && "Username is required"}
+                <Input {...register("email", { required: true })} name="email" type="text" placeholder="Email" />
+                {errors.email?.type === "required" && "Email is required"}
+                <Input {...register("password", { required: true })} name="password" type="password" placeholder="Password" />
+                {errors.password?.type === "required" && "Password is required"}
+                <Input {...register("password", { required: true })}  name="password" type="password" placeholder="Password" />
+                {errors.password?.type === "required" && "Password is required"}
                 <Button type="submit">sign up</Button>
             </form>
         </AuthBox>

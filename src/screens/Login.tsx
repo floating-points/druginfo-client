@@ -100,13 +100,8 @@ interface IFormInputs {
 
 const Login: React.FC<RouteComponentProps<PathParamsProps>> = ({ location }: RouteComponentProps<PathParamsProps>) => {
     // console.log(location)
-
     const { register, handleSubmit, formState: { errors }, getValues, setError, clearErrors } = useForm({
-        mode: "onChange",
-        // defaultValues: {
-        //     username: location?.state?.username || "",
-        //     password: location?.state?.password || ""
-        // }
+        mode: "onChange"
     });
     const onSubmitValid: SubmitHandler<IFormInputs> = (data) => {
         console.log(data)
