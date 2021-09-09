@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { useForm, UseFormRegisterReturn } from "react-hook-form";
+import { SubmitHandler, useForm, UseFormRegisterReturn } from "react-hook-form";
 import { RouteComponentProps } from "react-router-dom";
 
 const Container = styled.div`
@@ -58,6 +58,7 @@ const Button = styled.button`
     font-weight: 600;
     font-size: 20px;
     width: 100%;
+    cursor: pointer;
 `;
 
 const FacebookLogin = styled.button`
@@ -92,26 +93,24 @@ interface PathParamsProps {
     id: string;
 }
 
-interface user {
+interface IFormInputs {
     username: string
     password: string
-}
-
-interface form {
-    register: () => UseFormRegisterReturn,
-    required: string
 }
 
 const Login: React.FC<RouteComponentProps<PathParamsProps>> = ({ location }: RouteComponentProps<PathParamsProps>) => {
     // console.log(location)
 
-    const { register, handleSubmit, formState, getValues, setError, clearErrors } = useForm({
+    const { register, handleSubmit, formState: { errors }, getValues, setError, clearErrors } = useForm({
         mode: "onChange",
         // defaultValues: {
         //     username: location?.state?.username || "",
         //     password: location?.state?.password || ""
         // }
     });
+    const onSubmitValid: SubmitHandler<IFormInputs> = (data) => {
+        console.log(data)
+    }
     const clearLoginError = () => {
         clearErrors("result")
     }
@@ -119,9 +118,11 @@ const Login: React.FC<RouteComponentProps<PathParamsProps>> = ({ location }: Rou
         <Container>
             <AuthBox>
                 <Wrapper>Login</Wrapper>
-                <form>
-                    <Input onChange={clearLoginError} name="username" type="text" placeholder="Username" />
-                    <Input onChange={clearLoginError} name="password" type="password" placeholder="Password" />
+                <form onSubmit={handleSubmit(onSubmitValid)}>
+                    <Input {...register("username", { required: true, maxLength: 20 })} onChange={clearLoginError} name="username" type="text" placeholder="Username" />
+                    {errors.username?.type === "required" && "Username is required"}
+                    <Input {...register("password", { required: true })} onChange={clearLoginError} name="password" type="password" placeholder="Password" />
+                    {errors.password?.type === "required" && "Password is required"}
                     <Button type="submit">login</Button>
                 </form>
                 <FacebookLogin>
