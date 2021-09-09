@@ -83,9 +83,8 @@ const SignUp: React.FC = () => {
                 {errors.email?.type === "required" && "Email is required"}
                 <Input {...register("password", { required: true })} name="password" type="password" placeholder="Password" />
                 {errors.password?.type === "required" && "Password is required"}
-                <Input {...register("password", { required: true, validate: (value) => value === watch(password) })}  name="confirmedpassword" type="password" placeholder="Password" />
-                {errors.password?.type === "required" && "Password is required"}
-                
+                <Input {...register("confirmedpassword", { required: true, validate: (value) => value === watch(password) })}  name="confirmedpassword" type="password" placeholder="Password" />
+                {(errors.confirmedpassword?.type === "required" && "Password is required")}
                 <Button type="submit">sign up</Button>
             </form>
         </AuthBox>
