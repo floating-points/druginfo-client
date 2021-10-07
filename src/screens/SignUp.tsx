@@ -1,6 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
+import Header from "../MainPage/Header";
 
 const Container = styled.div`
     display: flex;
@@ -73,22 +74,25 @@ const SignUp: React.FC = () => {
         console.log(data)
     }
     return (
-        <Container>
-        <AuthBox>
-            <Wrapper>Sign Up</Wrapper>
-            <form onSubmit={handleSubmit(onSubmitValid)}>
-                <Input {...register("username", { required: true, maxLength: 20 })} name="username" type="text" placeholder="Username" />
-                {errors.username?.type === "required" && "Username is required"}
-                <Input {...register("email", { required: true })} name="email" type="text" placeholder="Email" />
-                {errors.email?.type === "required" && "Email is required"}
-                <Input {...register("password", { required: true })} name="password" type="password" placeholder="Password" />
-                {errors.password?.type === "required" && "Password is required"}
-                <Input {...register("confirmedpassword", { required: true })}  name="confirmedpassword" type="password" placeholder="Password" />
-                {(errors.confirmedpassword?.type === "required" && "Password is required")}
-                <Button type="submit">sign up</Button>
-            </form>
-        </AuthBox>
-    </Container>
+        <>
+            <Header />
+            <Container>
+            <AuthBox>
+                <Wrapper>Sign Up</Wrapper>
+                <form onSubmit={handleSubmit(onSubmitValid)}>
+                    <Input {...register("username", { required: true, maxLength: 20 })} name="username" type="text" placeholder="Username" />
+                    {errors.username?.type === "required" && "Username is required"}
+                    <Input {...register("email", { required: true })} name="email" type="text" placeholder="Email" />
+                    {errors.email?.type === "required" && "Email is required"}
+                    <Input {...register("password", { required: true })} name="password" type="password" placeholder="Password" />
+                    {errors.password?.type === "required" && "Password is required"}
+                    <Input {...register("confirmedpassword", { required: true })}  name="confirmedpassword" type="password" placeholder="Password" />
+                    {(errors.confirmedpassword?.type === "required" && "Password is required")}
+                    <Button type="submit">sign up</Button>
+                </form>
+            </AuthBox>
+        </Container>
+    </>
     )
 }
 
