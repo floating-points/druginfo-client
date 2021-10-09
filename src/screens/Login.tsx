@@ -1,8 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import { SubmitHandler, useForm, UseFormRegisterReturn } from "react-hook-form";
-import { RouteComponentProps } from "react-router-dom";
+import { RouteComponentProps, useHistory } from "react-router-dom";
 import Header from "../MainPage/Header";
+import axios from "axios";
 
 const Container = styled.div`
     display: flex;
@@ -105,13 +106,31 @@ interface IFormInputs {
     password: string
 }
 
+interface ServerData {
+    success: string,
+    token: string
+}
+
 const Login: React.FC<RouteComponentProps<PathParamsProps>> = ({ location }: RouteComponentProps<PathParamsProps>) => {
     // console.log(location)
+    let history = useHistory();
     const { register, handleSubmit, formState: { errors }, getValues, setError, clearErrors } = useForm({
         mode: "onChange"
     });
-    const onSubmitValid: SubmitHandler<IFormInputs> = (data) => {
-        console.log(data)
+    const onSubmitValid = (userdata: any) => {
+        axios.post<IFormInputs>("http://localhost:3001/auth/login", {
+            username: userdata.username,
+            password: userdata.password
+        }).then((response: any) => {
+            if (response['statusText'] === "OK") {
+                const token = response.data.token;
+                localStorage.setItem("x_auth", token);
+                history.push("/");
+            }
+        }).catch(function(response) {
+            console.log(response);
+            alert("아이디 혹은 비밀번호가 틀렸습니다");
+        });
     }
     const clearLoginError = () => {
         clearErrors("result")
