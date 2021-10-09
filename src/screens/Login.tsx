@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { SubmitHandler, useForm, UseFormRegisterReturn } from "react-hook-form";
 import { RouteComponentProps } from "react-router-dom";
+import Header from "../MainPage/Header";
 
 const Container = styled.div`
     display: flex;
@@ -116,24 +117,27 @@ const Login: React.FC<RouteComponentProps<PathParamsProps>> = ({ location }: Rou
         clearErrors("result")
     }
     return (
-        <Container>
-            <AuthBox>
-                <Wrapper>Login</Wrapper>
-                <form onSubmit={handleSubmit(onSubmitValid)}>
-                    <Input {...register("username", { required: true, maxLength: 20 })} onChange={clearLoginError} name="username" type="text" placeholder="Username" />
-                    {errors.username?.type === "required" && "Username is required"}
-                    <Input {...register("password", { required: true })} onChange={clearLoginError} name="password" type="password" placeholder="Password" />
-                    {errors.password?.type === "required" && "Password is required"}
-                    <Button type="submit">login</Button>
-                </form>
-                <FacebookLogin>
-                    <span>Login with Facebook</span>
-                </FacebookLogin>
-                <GoogleLogin>
-                    <span>Login with Google</span>
-                </GoogleLogin>
-            </AuthBox>
-        </Container>
+        <>
+            <Header />
+            <Container>
+                <AuthBox>
+                    <Wrapper>Login</Wrapper>
+                    <form onSubmit={handleSubmit(onSubmitValid)}>
+                        <Input {...register("username", { required: true, maxLength: 20 })} onChange={clearLoginError} name="username" type="text" placeholder="Username" />
+                        {errors.username?.type === "required" && "Username is required"}
+                        <Input {...register("password", { required: true })} onChange={clearLoginError} name="password" type="password" placeholder="Password" />
+                        {errors.password?.type === "required" && "Password is required"}
+                        <Button type="submit">login</Button>
+                    </form>
+                    <FacebookLogin>
+                        <span>Login with Facebook</span>
+                    </FacebookLogin>
+                    <GoogleLogin>
+                        <span>Login with Google</span>
+                    </GoogleLogin>
+                </AuthBox>
+            </Container>
+        </>
     )
 }
 
