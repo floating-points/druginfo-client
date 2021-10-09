@@ -2,6 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import Header from "../MainPage/Header";
+import axios from "axios";
 
 const Container = styled.div`
     display: flex;
@@ -71,7 +72,16 @@ const SignUp: React.FC = () => {
         mode: "onChange"
     });
     const onSubmitValid = (data: any) => {
-        console.log(data)
+        console.log(data);
+        axios.post('http://localhost:3001/auth/register', {
+            username: data.username,
+            email: data.email,
+            password: data.password
+        }).then(function(response) {
+            console.log(response);
+        }).catch(function(response) {
+            console.log(response);
+        })
     }
     return (
         <>
